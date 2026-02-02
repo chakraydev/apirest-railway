@@ -14,7 +14,9 @@ ENV PORT=${PORT}
 
 COPY --from=build /app/app.jar .
 
-RUN adduser runtime
-USER runtime
+RUN groupadd --gid 1001 appuser \
+    && useradd --uid 1001 --gid appuser --shell /bin/bash --create-home appuser
+
+USER appuser
 
 ENTRYPOINT [ "java", "-Dserver.port=${PORT}", "-jar", "app.jar" ]
