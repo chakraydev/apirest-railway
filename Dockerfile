@@ -14,7 +14,7 @@ ENV PORT=${PORT}
 
 COPY --from=build /app/app.jar .
 
-RUN type useradd
+RUN which useradd
 RUN useradd runtime
 USER runtime
 
