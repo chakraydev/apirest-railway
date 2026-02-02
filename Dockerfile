@@ -7,13 +7,14 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 RUN mv -f target/*.jar app.jar
 
-FROM eclipse-temurin:21-jre-alpine as runtime
+FROM eclipse-temurin:21-jre-alpine
 
 ARG PORT
 ENV PORT=${PORT}
 
 COPY --from=build /app/app.jar .
 
+RUN type useradd
 RUN useradd runtime
 USER runtime
 
