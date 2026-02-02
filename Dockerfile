@@ -1,4 +1,4 @@
-FROM eclispe-temurin:21.0.9_10-jdk-noble as build
+FROM eclipse-temurin:21-jdk-alpine as build
 
 COPY . /app
 WORKDIR /app
@@ -7,7 +7,7 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 RUN mv -f target/*.jar app.jar
 
-FROM eclipse-temurin:21.0.9_10-jre-noble
+FROM eclipse-temurin:21-jre-alpine as runtime
 
 ARG PORT
 ENV PORT=${PORT}
