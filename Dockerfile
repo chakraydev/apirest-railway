@@ -1,4 +1,4 @@
-FROM eclispe-temurin:21-jdk as build
+FROM eclispe-temurin:21-jdk-ubi10-minimal as build
 
 COPY . /app
 WORKDIR /app
@@ -7,7 +7,7 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 RUN mv -f target/*.jar app.jar
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre-ubi10-minimal
 
 ARG PORT
 ENV PORT=${PORT}
